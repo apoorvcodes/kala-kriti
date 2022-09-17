@@ -30,6 +30,6 @@ func main() {
 	})
 
 	m.UseRouter(routes.MainRouter())
-	m.Listen(":3000")
+	m.Listen(os.Getenv("PORT"))
 }
 
