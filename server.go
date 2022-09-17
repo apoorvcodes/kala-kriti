@@ -31,6 +31,6 @@ func main() {
 
 	m.UseRouter(routes.MainRouter())
 	fmt.Print(os.Getenv("PORT"))
-	m.Listen(os.Getenv("PORT"))
+	m.Listen(":" + os.Getenv("PORT"))
 }
 
