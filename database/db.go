@@ -3,16 +3,17 @@ package Db
 import (
 	"context"
 	"fmt"
+	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
-func Connect(uri string) *mongo.Client{
+func Connect() *mongo.Client{
 	// Create a new client and connect to the server
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
-
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(os.Getenv("DATABASE_URL")))
+    fmt.Print(os.Getenv("DATABASE_URL"))
 	if err != nil {
 		panic(err)
 	}

@@ -6,6 +6,6 @@ import (
 
 func GraphHandler() minima.Handler {
 	return func(res *minima.Response, req *minima.Request) {
-      res.Send("Hello")
+		res.Send("Hello")
 	}
 }

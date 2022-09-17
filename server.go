@@ -2,24 +2,20 @@ package main
 
 import (
 	"fmt"
-	"kala/database"
-	"kala/routes"
-	"os"
-    "github.com/joho/godotenv"
 	"github.com/gominima/cors"
 	"github.com/gominima/middlewares"
 	"github.com/gominima/minima"
+	"github.com/joho/godotenv"
+	"kala/routes"
+	"os"
 )
 
 func main() {
 	m := minima.New()
-     err := godotenv.Load()
-	 if err != nil {
+	err := godotenv.Load()
+	if err != nil {
 		panic(err)
-	 }
-
-	db := Db.Connect(os.Getenv("DATABASE_URL"))
-	fmt.Print(db)
+	}
 	m.UseRaw(middleware.Logger)
 	m.UseRaw(middleware.RouteHeaders().Handler)
 	m.UseRaw(middleware.Heartbeat("/graph"))
@@ -33,4 +29,3 @@ func main() {
 	fmt.Print(os.Getenv("PORT"))
 	m.Listen(":" + os.Getenv("PORT"))
 }
-
