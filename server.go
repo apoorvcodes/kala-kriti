@@ -30,7 +30,6 @@ func main() {
 	})
 
 	m.UseRouter(routes.MainRouter())
-	m.Static("/static", "./static")
 	m.Listen(":3000")
 }
 
