@@ -35,13 +35,14 @@ func SaveHandler() minima.Handler {
 
 	fmt.Println("Successfully connected and pinged.")
 		
-		db := client.Database("Data").Collection("kala")
+		db := client.Database("Data").Collection("prod")
 
 		boolean,_ := strconv.ParseBool(req.Param("toxic"))
+		intVar, _:= strconv.Atoi(req.Param("read"))
 		save := &KalaKritiData{
 			Date: time.Now().Day(),
 			Toxic: boolean,
-			Readings: req.Param("read"),
+			Readings:intVar ,
 			Level: req.Param("level"),
 		   }
 		resp, err := db.InsertOne(context.TODO(), save)

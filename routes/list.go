@@ -16,7 +16,7 @@ import (
 type KalaKritiData struct {
 	Date     int  `bson:"date,omitempty"`
 	Toxic    bool  `bson:"toxic,omitempty"`
-	Readings string  `bson:"readings,omitempty"`
+	Readings int  `bson:"readings,omitempty"`
 	Level    string  `bson:"level,omitempty"`
 }
 type DataArray struct {
@@ -42,7 +42,7 @@ func ListHandler() minima.Handler {
 		fmt.Print("ERROR 3")
 		panic(err)
 	}
-	cursor, err := client.Database("Data").Collection("kala").Find(context.TODO(), bson.M{})
+	cursor, err := client.Database("Data").Collection("prod").Find(context.TODO(), bson.M{})
 if err != nil {
     log.Fatal(err)
 }
