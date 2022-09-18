@@ -5,5 +5,5 @@ import (
 )
 
 func MainRouter() *minima.Router {
-	return minima.NewRouter().Get("/graph/:format", GraphHandler()).Get("/list", ListHandler()).Get(("/save/:toxic/:read/:level"), SaveHandler())
+	return minima.NewRouter().Get("/graph/:format", GraphHandler()).Get("/list", ListHandler()).Post(("/save/:toxic/:read/:level"), SaveHandler()).Get("/save/:toxic/:read/:level", SaveHandler())
 }
