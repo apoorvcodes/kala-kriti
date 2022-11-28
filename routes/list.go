@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-
 	"github.com/gominima/minima"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -19,6 +18,7 @@ type KalaKritiData struct {
 	Readings int  `bson:"readings,omitempty"`
 	Level    string  `bson:"level,omitempty"`
 }
+
 type DataArray struct {
 	Data []*KalaKritiData
 }
@@ -42,7 +42,7 @@ func ListHandler() minima.Handler {
 		fmt.Print("ERROR 3")
 		panic(err)
 	}
-	cursor, err := client.Database("Data").Collection("prod").Find(context.TODO(), bson.M{})
+	cursor, err := client.Database("Data").Collection("prod-2").Find(context.TODO(), bson.M{})
 if err != nil {
     log.Fatal(err)
 }

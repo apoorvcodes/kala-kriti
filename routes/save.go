@@ -35,7 +35,7 @@ func SaveHandler() minima.Handler {
 
 	fmt.Println("Successfully connected and pinged.")
 		
-		db := client.Database("Data").Collection("prod")
+		db := client.Database("Data").Collection("prod-2")
 
 		boolean,_ := strconv.ParseBool(req.Param("toxic"))
 		intVar, _:= strconv.Atoi(req.Param("read"))
@@ -45,7 +45,7 @@ func SaveHandler() minima.Handler {
 			Readings:intVar ,
 			Level: req.Param("level"),
 		   }
-		resp, err := db.InsertOne(context.TODO(), save)
+		resp, err := db.InsertOne(context.TODO(),save)
         fmt.Print(resp)
 		if err != nil {
 			fmt.Print("ERROR 3")
