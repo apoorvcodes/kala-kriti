@@ -19,6 +19,7 @@ type Toll struct {
 	Timestamp string
 	Base64 string
 	TollName string
+	NumberPlate string
 }
 
 func CreateNewToll(w string, b bool, t string, img string, n string) *Toll {
@@ -34,7 +35,7 @@ func CreateNewToll(w string, b bool, t string, img string, n string) *Toll {
 
 
 func TollRouter() *minima.Router {
-	return minima.NewRouter().Post("/toll/:name/:bool/:read", SaveTollHandler())
+	return minima.NewRouter().Get("/toll/:name/:bool/:read/:ocr", SaveTollHandler())
 }
 
 
@@ -67,3 +68,10 @@ func BaseToImg(data string) {
 
 
 
+func deleteImg(name string) {
+
+}
+
+func OcrImg(name string) string {
+	return ""
+}

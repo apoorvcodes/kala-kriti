@@ -3,17 +3,18 @@ package routes
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
-	"strconv"
-	"time"
-
 	"github.com/gominima/minima"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"gopkg.in/mgo.v2/bson"
 )
 
-func SaveTollHandler() minima.Handler {
+
+
+func TollListHandler() minima.Handler {
 	return func(res *minima.Response, req *minima.Request) {
 		client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(os.Getenv("DATABASE_URL")))
 	if err != nil {
@@ -32,31 +33,14 @@ func SaveTollHandler() minima.Handler {
 		fmt.Print("ERROR 3")
 		panic(err)
 	}
-	fmt.Println("Successfully connected and pinged.")
-	w := req.Param("read")
-	b,_ := strconv.ParseBool(req.Param("bool"))
-	n := req.Param("name")
-	q := req.BodyValue("base")[0]
-    ocr := req.Param("ocr")
-
-	save := &Toll{
-		TollName: n,
-		Base64: q,
-		Weight: w,
-		IsOverweight: b,
-		NumberPlate: ocr,
-		Timestamp: time.Now().Format("2006.01.02 15:04:05"),
-	}
-		db := client.Database("Data").Collection(req.Param("name"))
-		resp, err := db.InsertOne(context.TODO(),save)
-        fmt.Print(resp)
-		if err != nil {
-			fmt.Print("ERROR 3")
-
-			res.Error(404, err.Error())
-			panic(err)
-		}
-
-		res.OK().JSON(save)
+	cursor, err := client.Database("Data").Collection("prod-2").Find(context.TODO(), bson.M{})
+if err != nil {
+    log.Fatal(err)
+}
+var data []*Toll
+if err = cursor.All(context.TODO(), &data); err != nil {
+    log.Fatal(err)
+}
+	res.OK().JSON(data)
 	}
 }
