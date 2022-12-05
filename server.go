@@ -24,8 +24,9 @@ func main() {
 	m.Get("/", func(res *minima.Response, req *minima.Request) {
 		res.JSON("Hello")
 	})
-
+    m.Static("/static", "./Static")
 	m.UseRouter(routes.MainRouter())
+	m.UseRouter(routes.TollRouter())
 	fmt.Print(os.Getenv("PORT"))
 	m.Listen(":" + os.Getenv("PORT"))
 }
